@@ -1,2 +1,54 @@
+#Sketch2Pix
+
 pix2pix/datasets/faces/*
 pix2pix/datasets/edges2shoes/*
+
+#Pix2Pix
+#
+*~
+
+**/*.DS_Store
+pix2pix/cache/
+pix2pix/results/
+pix2pix/checkpoints/
+
+# luarocks build files
+**/*.src.rock
+**/*.zip
+**/*.tar.gz
+**/*.t7
+
+# Object files
+**/*.o
+**/*.os
+**/*.ko
+**/*.obj
+**/*.elf
+
+# Precompiled Headers
+**/*.gch
+**/*.pch
+
+# Libraries
+**/*.lib
+**/*.a
+**/*.la
+**/*.lo
+**/*.def
+**/*.exp
+
+# Shared objects (inc. Windows DLLs)
+**/*.dll
+**/*.so
+**/*.so.*
+**/*.dylib
+
+# Executables
+**/*.exe
+**/*.out
+**/*.app
+**/*.i*86
+**/*.x86_64
+**/*.hex
+
+#HED
