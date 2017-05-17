@@ -12,6 +12,7 @@ dataset/*
 pix2pix/cache/
 #pix2pix/results/
 #pix2pix/checkpoints/
+pix2pix/datasets/*
 
 # luarocks build files
 **/*.src.rock
