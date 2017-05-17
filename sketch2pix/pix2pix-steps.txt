@@ -1,0 +1,21 @@
+1. Start with 1000 images (then 10000)
+DL Images
+https://drive.google.com/open?id=0B7EVK8r0v71pZjFTYXZWM3FlRnM
+
+2. Scale Images down to 32x32 (imagemagick)
+- Look for bicubic interpolation, sober, or canny
+
+3. Extract edges from scaled images (http://www.uncannyvision.com/)
+- (start) https://github.com/phillipi/pix2pix#extracting-edges
+	- (Optional) Simplify edges with post-processing
+- https://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=14491 (sobel)
+- https://stackoverflow.com/questions/4058224/creation-of-edge-detection-based-image-in-php ( --charcoal)
+- https://www.imagemagick.org/Usage/transform/#vision (canny)
+
+4. Generate pairs
+- https://github.com/phillipi/pix2pix#generating-pairs
+
+5. Train 
+
+6. Test
+
