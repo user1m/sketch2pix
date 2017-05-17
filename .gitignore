@@ -3,6 +3,9 @@ pix2pix/datasets/faces/*
 pix2pix/datasets/edges2shoes/*
 SketchToFace/*
 hed/*
+!dataset/**/face2edge/*
+!dataset/*.sh
+dataset/*
 
 #Pix2Pix
 #
