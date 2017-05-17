@@ -7,7 +7,7 @@ The goal of this project is to use Machine Learning to transform police sketches
 The overall motivation is to help the police better identify and catch the bad guys faster.
 
 ## Requirements
-* [imagemagick] (https://imagemagick.org/script/index.php) 
+* [imagemagick](https://imagemagick.org/script/index.php) 
 
 ## Creating Datasets
 1. Create a folder in `sketch2pix/dataset`
