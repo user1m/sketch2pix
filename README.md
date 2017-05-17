@@ -85,6 +85,7 @@ where `--name` is the value passed into the scripts from above.
 
 Open that html file in a browser to examine the results of your test.
 
+![Results](./example-results.png)
 
 ## Acknowledgements
 
