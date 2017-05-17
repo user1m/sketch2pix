@@ -22,7 +22,20 @@ cd $parent_path/$2
                 exit 1;
             fi
         done
-        python ../../pix2pix/scripts/combine_A_and_B.py --fold_A face --fold_B edge --fold_AB face2edge
+
+        cd face
+        for dir in *
+        do
+            if [ -d $dir ]; then
+                cd $dir
+                for image in *.jpg
+                do
+                    magick convert +append $image ../../edge/$dir/$image ../../face2edge/$dir/$image
+                done
+                cd ../
+            fi
+        done
+#        python ../../pix2pix/scripts/combine_A_and_B.py --fold_A face --fold_B edge --fold_AB face2edge
         cd ../
 #    fi
 #done

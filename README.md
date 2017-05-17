@@ -88,6 +88,13 @@ Open that html file in a browser to examine the results of your test.
 
 ![Results](./example-results.png)
 
+## TODO
+On how to improve it
+ 
+* In the input photos, we can run a face segmentation system that will put the background in white color and only train with faces. This way, the generated photos will also have a white background and the sketches will not have the background either.
+* Finding a more realistic sketching that matches pencil sketches.
+
+
 ## Acknowledgements
 
 * [pix2pix](https://github.com/phillipi/pix2pix)
