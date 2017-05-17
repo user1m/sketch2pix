@@ -2,6 +2,7 @@
 
 if [ "$1" != "--path" ]; then
     echo "error: --path missing" >&2;
+    echo "info: --path should be name of the data folder in /dataset" >&2;
     echo "usage: ./convert.sh --path celebfaces --edge 2" >&2;
     exit 1;
 elif [ "$3" != "--edge" ]; then

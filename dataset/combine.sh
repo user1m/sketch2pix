@@ -1,11 +1,19 @@
 #!/bin/bash
-parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
-cd $parent_path
 
-for dir in *
-do
-    if [ -d $dir ]; then
-        cd $dir
+if [ "$1" != "--path" ]; then
+    echo "error: --path missing" >&2;
+    echo "info: --path should be name of the data folder in /dataset" >&2;
+    echo "usage: ./combine.sh --path celebfaces" >&2;
+    exit 1;
+fi
+
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+cd $parent_path/$2
+
+#for dir in *
+#do
+#    if [ -d $dir ]; then
+#        cd $dir
         rm -rf **/.DS_Store
         for dir in *
         do
@@ -16,7 +24,7 @@ do
         done
         python ../../pix2pix/scripts/combine_A_and_B.py --fold_A face --fold_B edge --fold_AB face2edge
         cd ../
-    fi
-done
+#    fi
+#done
 
 

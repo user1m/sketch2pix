@@ -11,35 +11,64 @@ The overall motivation is to help the police better identify and catch the bad g
 
 ## Creating Datasets
 1. Create a folder in `sketch2pix/dataset`
-	*	ie. `face-edge-1`
+	*	ie. `faces-edge1`
 2. Within that folder create 3 folders `edge`, `face`, `face2edge`
 3. Within each of those 3 folders create 2 folders `test`, `train`
 4. Put your output images in the `face` folder and split them however you want into the `test` and `train` folders. It's recommended you train on 70% of your images and test the other 30%
 5. Use the `convert.sh` script to generate the edge versions (aka inputs) of your `face` images
-	* in the `sketch2pix/dataset` run `./convert.sh --path faces-edge1 --edge 1`
+	* in the `sketch2pix/dataset` run 
+
+	```bash
+	./convert.sh --path faces-edge1 --edge 1
+	```
+	
+	* [--edge](https://www.imagemagick.org/script/command-line-options.php?#edge) is the fineness of the edges you want to generate [1 = low, 10 = high] 
 6. Use the `combine.sh` script to generate the combination images needed for pix2pix to train and test
+	* in the `sketch2pix/dataset` run 
+	
+	```bash
+	./combine.sh --path faces-edge1
+	```
+	
+	* combination images will the stored in the `face2edge` folder created earlier (in this case `faces-edge1/face2edge`)
 
 
-## Training Model
+
+## Training a Model
+In `sketch2pix`
+
+Run 
+
 ```bash
-DATA_ROOT=/path/to/data/ name=expt_name which_direction=AtoB th train.lua
+./train.sh --data-root ../dataset/faces-edge1/face2edge --name edge2face_edge1_generation --direction BtoA"
 ```
-Switch `AtoB` to `BtoA` to train translation in opposite direction.
+Required parameters:
 
-Models are saved to `./checkpoints/expt_name` (can be changed by passing `checkpoint_dir=your_dir` in train.lua).
+`--data-root`
 
-See `opt` in train.lua for additional training options.
+`--name` 
 
-## Testing Model
+`--direction`
+
+
+## Testing a Model
+In `sketch2pix`
+
+Run 
+
 ```bash
-DATA_ROOT=/path/to/data/ name=expt_name which_direction=AtoB phase=val th test.lua
+./test.sh --data-root ../dataset/faces-edge1/face2edge --phase test --name edge2face_edge1_generation --direction BtoA"
 ```
 
-This will run the model named `expt_name` in direction `AtoB` on all images in `/path/to/data/val`.
+Required parameters:
 
-Result images, and a webpage to view them, are saved to `./results/expt_name` (can be changed by passing `results_dir=your_dir` in test.lua).
+`--data-root`
 
-See `opt` in test.lua for additional testing options.
+`--phase`
+
+`--name` - should be the same as what was used in the train script
+
+`--direction`
 
 ## Acknowledgements
 
