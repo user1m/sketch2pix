@@ -50,6 +50,8 @@ Required parameters:
 
 `--direction`
 
+[More info here](https://github.com/phillipi/pix2pix#train)
+
 
 ## Testing a Model
 In `sketch2pix`
@@ -69,6 +71,9 @@ Required parameters:
 `--name` - should be the same as what was used in the train script
 
 `--direction`
+
+[More info here](https://github.com/phillipi/pix2pix#test)
+
 
 ## Acknowledgements
 
