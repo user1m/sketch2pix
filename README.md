@@ -23,6 +23,8 @@ The overall motivation is to help the police better identify and catch the bad g
 	```
 	
 	* [--edge](https://www.imagemagick.org/script/command-line-options.php?#edge) is the fineness of the edges you want to generate [1 = low, 10 = high] 
+	* **This will output to the `edge` folder**
+	
 6. Use the `combine.sh` script to generate the combination images needed for pix2pix to train and test
 	* in the `sketch2pix/dataset` run 
 	
@@ -30,8 +32,7 @@ The overall motivation is to help the police better identify and catch the bad g
 	./combine.sh --path faces-edge1
 	```
 	
-	* combination images will the stored in the `face2edge` folder created earlier (in this case `faces-edge1/face2edge`)
-
+	* **Combination images will the stored in the `face2edge` folder created earlier (in this case `faces-edge1/face2edge`)**
 
 
 ## Training a Model
@@ -93,7 +94,7 @@ Open that html file in a browser to examine the results of your test.
 
 ## Contributors
 
-* **[User1m](https://github.com/user1m)** - *Script development and model training*
+* **[User1m](https://github.com/user1m)** - *Script development and model training / testing*
 * **[koul](https://github.com/koul)** - *Seed idea*
 * **[wtam](https://github.com/wtam)**, **[tikyau](https://github.com/tikyau)**, **[getCloudy](https://github.com/getCloudy)** - *Help with data generation*
 
