@@ -12,10 +12,13 @@ https://drive.google.com/open?id=0B7EVK8r0v71pZjFTYXZWM3FlRnM
 - https://stackoverflow.com/questions/4058224/creation-of-edge-detection-based-image-in-php ( --charcoal)
 - https://www.imagemagick.org/Usage/transform/#vision (canny)
 
+Face + Sketches Database
+- http://mmlab.ie.cuhk.edu.hk/archive/facesketch.html
+
 4. Generate pairs
 - https://github.com/phillipi/pix2pix#generating-pairs
 
-5. Train 
+5. Train
 
 6. Test
 
