@@ -75,13 +75,26 @@ Required parameters:
 [More info here](https://github.com/phillipi/pix2pix#test)
 
 
+## Validating your models
+After testing your results are stored in 
+
+```
+sketch2pix/pix2pix/results/{--name}/latest_net_G_test/index.html
+```
+where `--name` is the value passed into the scripts from above.
+
+Open that html file in a browser to examine the results of your test.
+
+
 ## Acknowledgements
 
 * [pix2pix](https://github.com/phillipi/pix2pix)
 
 ## Contributors
 
-**User1m**
+* **[User1m](https://github.com/user1m)** - *Script development and model training*
+* **[koul](https://github.com/koul)** - *Seed idea*
+* **[wtam](https://github.com/wtam)**, **[tikyau](https://github.com/tikyau)**, **[getCloudy](https://github.com/getCloudy)** - *Help with data generation*
 
 ## License
 
