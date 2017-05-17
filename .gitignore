@@ -1,5 +1,4 @@
 #Sketch2Pix
-
 pix2pix/datasets/faces/*
 pix2pix/datasets/edges2shoes/*
 SketchToFace/*
