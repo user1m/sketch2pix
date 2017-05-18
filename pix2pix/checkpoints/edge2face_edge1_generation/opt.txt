@@ -62,8 +62,8 @@ use_GAN
 9
 DATA_ROOT
 2
-32
-../dataset/faces-edge1/face2edge
+37
+../dataset/celebfaces-edge1/face2edge
 2
 17
 serial_batch_iter
@@ -78,7 +78,7 @@ use_L1
 10
 manualSeed
 1
-7528
+8689
 2
 15
 save_epoch_freq
