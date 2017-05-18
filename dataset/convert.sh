@@ -35,7 +35,7 @@ cd $parent_path/$2/face
                 cd $dir
                 for image_file in *.jpg
                 do
-                    if  [ "$system" != "Darwin" ] || [ "$system" != "Linux" ]; then
+                    if  [ "$system" != "Darwin" ] && [ "$system" != "Linux" ]; then
                         magick convert $image_file  -colorspace Gray  -edge $4 -negate ../../edge/$dir/$image_file
                     else
                         convert $image_file  -colorspace Gray  -edge $4 -negate ../../edge/$dir/$image_file

@@ -32,7 +32,7 @@ system=$(uname -s)
                 cd $dir
                 for image in *.jpg
                 do
-                    if  [ "$system" != "Darwin" ] || [ "$system" != "Linux" ]; then
+                    if  [ "$system" != "Darwin" ] && [ "$system" != "Linux" ]; then
                         magick convert +append $image ../../edge/$dir/$image ../../face2edge/$dir/$image
                     else
                         convert +append $image ../../edge/$dir/$image ../../face2edge/$dir/$image
