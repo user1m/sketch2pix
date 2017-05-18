@@ -100,6 +100,13 @@ On how to improve it
 * In the input photos, we can run a face segmentation system that will put the background in white color and only train with faces. This way, the generated photos will also have a white background and the sketches will not have the background either.
 * Finding a more realistic sketching that matches pencil sketches.
 
+## Open Datasets
+* [Large-scale CelebFaces Attributes](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
+* [CUHK Face Sketch Database](http://mmlab.ie.cuhk.edu.hk/archive/facesketch.html)
+* [CUHK Face Sketch FERET Database](http://mmlab.ie.cuhk.edu.hk/archive/cufsf/index.html#Downloads)
+* [XM2VTS data set](http://www.ee.surrey.ac.uk/CVSSP/xm2vtsdb/)
+* [SCface - Surveillance Cameras Face Database](http://www.scface.org/)
+* [Face Recognition Databases](http://www.face-rec.org/databases/)
 
 ## Acknowledgements
 
