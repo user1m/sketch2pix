@@ -55,7 +55,6 @@ As the model trains checkpoints will be stored in:
 
 ```
 sketch2pix/pix2pix/checkpoints/{--name}
-
 ```
 where `--name` is the value passed into the scripts from above.
 
