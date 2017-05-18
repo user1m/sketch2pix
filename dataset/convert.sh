@@ -17,6 +17,8 @@ if ! [[ $4 =~ $re ]] ; then
     exit 1;
 fi
 
+#system=$(uname -s)
+
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 cd $parent_path/$2/face
 ##cd $2
@@ -33,7 +35,11 @@ cd $parent_path/$2/face
                 cd $dir
                 for image_file in *.jpg
                 do
-                    convert $image_file  -colorspace Gray  -edge $4 -negate ../../edge/$dir/$image_file
+#                    if  [ "$system" != "Darwin" ] || [ "$system" != "Linux" ]; then
+                    magick convert $image_file  -colorspace Gray  -edge $4 -negate ../../edge/$dir/$image_file
+#                    else
+#                        convert $image_file  -colorspace Gray  -edge $4 -negate ../../edge/$dir/$image_file
+#                    fi
                 done
                 cd ../
             fi

@@ -7,7 +7,7 @@ The goal of this project is to use Machine Learning to transform police sketches
 The overall motivation is to help the police better identify and catch the bad guys faster.
 
 ## Requirements
-* [imagemagick] (https://imagemagick.org/script/index.php) 
+* [imagemagick](https://imagemagick.org/script/index.php) 
 
 ## Creating Datasets
 1. Create a folder in `sketch2pix/dataset`
@@ -23,6 +23,8 @@ The overall motivation is to help the police better identify and catch the bad g
 	```
 	
 	* [--edge](https://www.imagemagick.org/script/command-line-options.php?#edge) is the fineness of the edges you want to generate [1 = low, 10 = high] 
+	* **This will output to the `edge` folder**
+	
 6. Use the `combine.sh` script to generate the combination images needed for pix2pix to train and test
 	* in the `sketch2pix/dataset` run 
 	
@@ -30,8 +32,7 @@ The overall motivation is to help the police better identify and catch the bad g
 	./combine.sh --path faces-edge1
 	```
 	
-	* combination images will the stored in the `face2edge` folder created earlier (in this case `faces-edge1/face2edge`)
-
+	* **Combination images will the stored in the `face2edge` folder created earlier (in this case `faces-edge1/face2edge`)**
 
 
 ## Training a Model
@@ -75,13 +76,34 @@ Required parameters:
 [More info here](https://github.com/phillipi/pix2pix#test)
 
 
+## Validating your models
+After testing your results are stored in 
+
+```
+sketch2pix/pix2pix/results/{--name}/latest_net_G_test/index.html
+```
+where `--name` is the value passed into the scripts from above.
+
+Open that html file in a browser to examine the results of your test.
+
+![Results](./example-results.png)
+
+## TODO
+On how to improve it
+ 
+* In the input photos, we can run a face segmentation system that will put the background in white color and only train with faces. This way, the generated photos will also have a white background and the sketches will not have the background either.
+* Finding a more realistic sketching that matches pencil sketches.
+
+
 ## Acknowledgements
 
 * [pix2pix](https://github.com/phillipi/pix2pix)
 
 ## Contributors
 
-**User1m**
+* **[User1m](https://github.com/user1m)** - *Script development and model training / testing*
+* **[koul](https://github.com/koul)** - *Seed idea*
+* **[wtam](https://github.com/wtam)**, **[tikyau](https://github.com/tikyau)**, **[getCloudy](https://github.com/getCloudy)** - *Help with data generation*
 
 ## License
 

@@ -4,6 +4,7 @@ hed/*
 !dataset/**/face2edge
 !dataset/*.sh
 dataset/*
+dev.sh
 
 #Pix2Pix
 *~
