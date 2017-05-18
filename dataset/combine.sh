@@ -10,6 +10,8 @@ fi
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 cd $parent_path/$2
 
+system=$(uname -s)
+
 #for dir in *
 #do
 #    if [ -d $dir ]; then
@@ -30,7 +32,11 @@ cd $parent_path/$2
                 cd $dir
                 for image in *.jpg
                 do
-                    magick convert +append $image ../../edge/$dir/$image ../../face2edge/$dir/$image
+                    if  [ "$system" != "Darwin" ] || [ "$system" != "Linux" ]; then
+                        magick convert +append $image ../../edge/$dir/$image ../../face2edge/$dir/$image
+                    else
+                        convert +append $image ../../edge/$dir/$image ../../face2edge/$dir/$image
+                    fi
                 done
                 cd ../
             fi
