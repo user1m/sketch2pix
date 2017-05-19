@@ -96,9 +96,10 @@ Open that html file in a browser to examine the results of your test.
 
 ## TODO
 On how to improve it
- 
-* In the input photos, we can run a face segmentation system that will put the background in white color and only train with faces. This way, the generated photos will also have a white background and the sketches will not have the background either.
-* Finding a more realistic sketching that matches pencil sketches.
+* Realistic sketch generation that matches pencil sketches
+* More training data
+* Using a face segmenter, seperating the face out of the background, so input photo is just a face on white background. This way, the generated photos will also have a white background and the sketches will not have the background either.
+* Using seperate model for men and women, seperate model for different hair colours. All achievable by running through internal FaceSDK
 
 ## Open Datasets
 * [Large-scale CelebFaces Attributes](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
