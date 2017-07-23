@@ -12,7 +12,8 @@ dev.sh
 
 **/*.DS_Store
 pix2pix/cache/
-#pix2pix/results/
+pix2pix/results/
+!pix2pix/results/*.zip
 pix2pix/checkpoints/
 pix2pix/datasets/*
 
