@@ -1,18 +1,19 @@
 
 # pix2pix
 [[Project]](https://phillipi.github.io/pix2pix/)   [[Arxiv]](https://arxiv.org/pdf/1611.07004v1.pdf)
+[[PyTorch]](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix)
 
 Torch implementation for learning a mapping from input images to output images, for example:
 
 <img src="imgs/examples.jpg" width="900px"/>
 
-Image-to-Image Translation Using Conditional Adversarial Networks  
+Image-to-Image Translation with Conditional Adversarial Networks  
  [Phillip Isola](http://web.mit.edu/phillipi/), [Jun-Yan Zhu](https://people.eecs.berkeley.edu/~junyanz/), [Tinghui Zhou](https://people.eecs.berkeley.edu/~tinghuiz/), [Alexei A. Efros](https://people.eecs.berkeley.edu/~efros/)   
  In arxiv, 2016.
 
 On some tasks, decent results can be obtained fairly quickly and on small datasets. For example, to learn to generate facades (example shown above), we trained on just 400 images for about 2 hours (on a single Pascal Titan X GPU). However, for harder problems it may be important to train on far larger datasets, and for many hours or even days.
 
-Check out our latest project [CycleGAN](https://github.com/junyanz/CycleGAN) for learning a pix2pix model without input-output pairs.  
+Check out our [[PyTorch]](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix) implementation. Also see our latest project [CycleGAN](https://github.com/junyanz/CycleGAN) for learning a pix2pix model **without** input-output pairs.
 
 ## Setup
 
@@ -78,18 +79,19 @@ See `opt` in test.lua for additional testing options.
 
 
 ## Datasets
-Download the datasets using the following script:
+Download the datasets using the following script. Some of the datasets are collected by other researchers. Please cite their papers if you use the data.
 ```bash
 bash ./datasets/download_dataset.sh dataset_name
 ```
-- `facades`: 400 images from [CMP Facades dataset](http://cmp.felk.cvut.cz/~tylecr1/facade/).
-- `cityscapes`: 2975 images from the [Cityscapes training set](https://www.cityscapes-dataset.com/).
+- `facades`: 400 images from [CMP Facades dataset](http://cmp.felk.cvut.cz/~tylecr1/facade/). [[Citation](datasets/bibtex/facades.tex)]
+- `cityscapes`: 2975 images from the [Cityscapes training set](https://www.cityscapes-dataset.com/).  [[Citation](datasets/bibtex/cityscapes.tex)]
 - `maps`: 1096 training images scraped from Google Maps
 - `edges2shoes`: 50k training images from [UT Zappos50K dataset](http://vision.cs.utexas.edu/projects/finegrained/utzap50k/). Edges are computed by [HED](https://github.com/s9xie/hed) edge detector + post-processing.
-- `edges2handbags`: 137K Amazon Handbag images from [iGAN project](https://github.com/junyanz/iGAN). Edges are computed by [HED](https://github.com/s9xie/hed) edge detector + post-processing.
+[[Citation](datasets/bibtex/shoes.tex)]
+- `edges2handbags`: 137K Amazon Handbag images from [iGAN project](https://github.com/junyanz/iGAN). Edges are computed by [HED](https://github.com/s9xie/hed) edge detector + post-processing. [[Citation](datasets/bibtex/handbags.tex)]
 
 ## Models
-Download the pre-trained models with the following script. You need to rename the model (e.g. `facades_label2image` to `/checkpoints/facades/latest_net_G.t7`) after the download has finished. 
+Download the pre-trained models with the following script. You need to rename the model (e.g. `facades_label2image` to `/checkpoints/facades/latest_net_G.t7`) after the download has finished.
 ```bash
 bash ./models/download_model.sh model_name
 ```
@@ -100,7 +102,7 @@ bash ./models/download_model.sh model_name
 - `sat2map` (aerial photo -> map): trained on Google maps.
 - `edges2shoes` (edge -> photo): trained on UT Zappos50K dataset.
 - `edges2handbags` (edge -> photo): train on Amazon handbags images.
-- `day2night` (daytime scene -> nighttime scene): trained on around 100 [webcams](http://transattr.cs.brown.edu/). 
+- `day2night` (daytime scene -> nighttime scene): trained on around 100 [webcams](http://transattr.cs.brown.edu/).
 
 ## Setup Training and Test data
 ### Generating Pairs
@@ -121,7 +123,22 @@ This will combine each pair of images (A,B) into a single image file, ready for 
 No need to run `combine_A_and_B.py` for colorization. Instead, you just need to prepare some natural images, and set `preprocess=colorization` in the script. The program will automatically convert each RGB image into Lab color space, and create  `L -> ab` image pair during the training.
 
 ### Extracting Edges
-We provide python and Matlab scripts to extract coarse edges from photos. Run `scripts/edges/batch_hed.py` to compute [HED](https://github.com/s9xie/hed) edges. Run `scripts/edges/PostprocessHED.m` to simplify edges with additional post-processing steps. Check the code documentation for more details. 
+We provide python and Matlab scripts to extract coarse edges from photos. Run `scripts/edges/batch_hed.py` to compute [HED](https://github.com/s9xie/hed) edges. Run `scripts/edges/PostprocessHED.m` to simplify edges with additional post-processing steps. Check the code documentation for more details.
+
+### Evaluating Labels2Photos on Cityscapes
+We provide scripts for running the evaluation of the Labels2Photos task on the Cityscapes validation set. We assume that you have installed `caffe` (and `pycaffe`) in your system. If not, see the [official website](http://caffe.berkeleyvision.org/installation.html) for installation instructions. Once `caffe` is successfully installed, download the pre-trained FCN-8s semantic segmentation model (512MB) by running
+```bash
+bash ./scripts/eval_cityscapes/download_fcn8s.sh
+```
+Then make sure `./scripts/eval_cityscapes/` is in your system's python path. If not, run the following command to add it
+```bash
+export PYTHONPATH=${PYTHONPATH}:./scripts/eval_cityscapes/
+```
+Now you can run the following command to evaluate your predictions:
+```bash
+python ./scripts/eval_cityscapes/evaluate.py --cityscapes_dir /path/to/original/cityscapes/dataset/ --result_dir /path/to/your/predictions/ --output_dir /path/to/output/directory/
+```
+By default, images in your prediction result directory have the same naming convention as the Cityscapes dataset (e.g. `frankfurt_000001_038418_leftImg8bit.png`). The script will output a txt file under `--output_dir` containing the metric.
 
 ## Display UI
 Optionally, for displaying images during training and test, use the [display package](https://github.com/szym/display).

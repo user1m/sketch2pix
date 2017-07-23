@@ -1,9 +1,10 @@
 #Sketch2Pix
 SketchToFace/*
 hed/*
+dataset/*
+data-sets/*
 !dataset/**/face2edge
 !dataset/*.sh
-dataset/*
 dev.sh
 
 #Pix2Pix
@@ -12,7 +13,7 @@ dev.sh
 **/*.DS_Store
 pix2pix/cache/
 #pix2pix/results/
-#pix2pix/checkpoints/
+pix2pix/checkpoints/
 pix2pix/datasets/*
 
 # luarocks build files
