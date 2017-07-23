@@ -15,15 +15,14 @@ The overall motivation is to help the police better identify and catch the bad g
 2. Within that folder create 3 folders `edge`, `face`, `face2edge`
 3. Within each of those 3 folders create 2 folders `test`, `train`
 4. Put your output images in the `face` folder and split them however you want into the `test` and `train` folders. It's recommended you train on 70% of your images and test the other 30%
-5. Use the `convert.sh` script to generate the edge versions (aka inputs) of your `face` images
+5. Use the `sketch.sh` script to generate the edge versions (aka inputs) of your `face` images
 	* in the `sketch2pix/dataset` run 
 
 	```bash
-	./convert.sh --path faces-edge1 --edge 1
+	./sketch.sh --image-path /path/to/image_folder --face-path /path/to/face_folder  --sketch-path /path/to/sketch_folder
 	```
 	
-	* [--edge](https://www.imagemagick.org/script/command-line-options.php?#edge) is the fineness of the edges you want to generate [1 = low, 10 = high] 
-	* **This command will output to the `edge` folder**
+	* --sketch-path should be the `train` or `test` folder in `edge`
 	
 6. Use the `combine.sh` script to generate the combination images needed for `pix2pix` to train and test
 	* in the `sketch2pix/dataset` run 
@@ -41,7 +40,7 @@ In `sketch2pix`
 Run 
 
 ```bash
-./train.sh --data-root ../dataset/faces-edge1/face2edge --name edge2face_edge1_generation --direction BtoA"
+./train.sh --data-root ../dataset/faces-edge1/face2edge --name edge2face_edge1_generation --direction BtoA
 ```
 Required parameters:
 
@@ -68,7 +67,7 @@ In `sketch2pix`
 Run 
 
 ```bash
-./test.sh --data-root ../dataset/faces-edge1/face2edge --name edge2face_edge1_generation --direction BtoA"
+./test.sh --data-root ../dataset/faces-edge1/face2edge --name edge2face_edge1_generation --direction BtoA
 ```
 
 Required parameters:
@@ -96,13 +95,14 @@ Open that html file in a browser to examine the results of your test.
 
 ## TODO
 On how to improve it
-* Realistic sketch generation that matches pencil sketches
-* More training data
+* Realistic sketch generation that matches pencil sketches [done]
+* More training data [done]
 * Using a face segmenter, seperating the face out of the background, so input photo is just a face on white background. This way, the generated photos will also have a white background and the sketches will not have the background either.
 * Using seperate model for men and women, seperate model for different hair colours. All achievable by running through internal FaceSDK
 
 ## Open Datasets
 * [Large-scale CelebFaces Attributes](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html)
+* [Labeled Faces In The Wild](http://vis-www.cs.umass.edu/lfw/#download)
 * [CUHK Face Sketch Database](http://mmlab.ie.cuhk.edu.hk/archive/facesketch.html)
 * [CUHK Face Sketch FERET Database](http://mmlab.ie.cuhk.edu.hk/archive/cufsf/index.html#Downloads)
 * [XM2VTS data set](http://www.ee.surrey.ac.uk/CVSSP/xm2vtsdb/)
@@ -116,7 +116,7 @@ On how to improve it
 
 ## Contributors
 
-* **[User1m](https://github.com/user1m)** - *Script development and model training / testing*
+* **[User1m](https://github.com/user1m)** - *Script development and Pix2Pix model training / testing, [Web App](http://sketchme.azurewebsites.net/)*
 * **[koul](https://github.com/koul)** - *Seed idea*
 * **[wtam](https://github.com/wtam)**, **[tikyau](https://github.com/tikyau)**, **[getCloudy](https://github.com/getCloudy)** - *Help with data generation*
 

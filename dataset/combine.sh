@@ -17,18 +17,14 @@ system=$(uname -s)
 #    if [ -d $dir ]; then
 #        cd $dir
         rm -rf **/.DS_Store
-        for dir in *
-        do
-            if [ "$dir" != "face" ] && [ "$dir" != "edge" ] && [ "$dir" != "face2edge" ]; then
-                echo "error: Please make sure your datasets contain the following folders only 'face' - collection of output images,  'edge' - collection of input images,  'face2edge' - folder where the combinations will be created. And within each of of those folders should be a  'test' and 'train' folder. For 'face2edge' the 'test' 'train' subfolders will be empty."
-                exit 1;
-            fi
-        done
 
         cd face
         for dir in *
         do
             if [ -d $dir ]; then
+				if [ "$dir" != "train" ] || [ "$dir" != "test" ]; then
+					continue
+				fi
                 cd $dir
                 for image in *.jpg
                 do

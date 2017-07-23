@@ -15,7 +15,8 @@ elif [ "$5" != "--sketch-path" ]; then
 fi
 
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
-cd $parent_path/PencilSketch
+cd $parent_path
+echo -e "\n\nCURRENT DIR: $parent_path\n\n"
 
 #python sketch.py ../data-sets/sample/images/ ../data-sets/sample/face-sketch/ ../data-sets/sample/sketch/
-python sketch.py $2 $4 $6
+python PencilSketch/gen_sketch_and_gen_resized_face.py $2 $4 $6
