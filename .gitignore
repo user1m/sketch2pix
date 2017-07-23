@@ -6,6 +6,7 @@ data-sets/*
 !dataset/**/face2edge
 !dataset/*.sh
 dev.sh
+*.log
 
 #Pix2Pix
 *~
