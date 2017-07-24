@@ -51,7 +51,7 @@ if opt.custom_image_dir == '' then
   opt.custom_image_dir = opt.name
 end
 opt.netG_name = opt.name .. '/' .. opt.which_epoch .. '_net_G'
-opt.custom_image_dir = = opt.custom_image_dir .. '/' .. opt.which_epoch .. '_net_G'
+opt.custom_image_dir = opt.custom_image_dir .. '/' .. opt.which_epoch .. '_net_G'
 
 local data_loader = paths.dofile('data/data.lua')
 print('#threads...' .. opt.nThreads)
