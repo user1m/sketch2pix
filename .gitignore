@@ -23,6 +23,7 @@ pix2pix-pytorch/results/
 !pix2pix-pytorch/results/*.zip
 pix2pix-pytorch/checkpoints/
 pix2pix-pytorch/datasets/*
+**/**/*.pth
 
 # luarocks build files
 **/*.src.rock
