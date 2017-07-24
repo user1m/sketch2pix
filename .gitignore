@@ -18,6 +18,12 @@ pix2pix/results/
 pix2pix/checkpoints/
 pix2pix/datasets/*
 
+pix2pix-pytorch/cache/
+pix2pix-pytorch/results/
+!pix2pix-pytorch/results/*.zip
+pix2pix-pytorch/checkpoints/
+pix2pix-pytorch/datasets/*
+
 # luarocks build files
 **/*.src.rock
 **/*.zip
