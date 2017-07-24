@@ -32,6 +32,7 @@ opt = {
     checkpoints_dir = './checkpoints', -- loads models from here
     results_dir='./results/',          -- saves results here
     which_epoch = 'latest',            -- which epoch to test? set to 'latest' to use latest cached model
+    custom_image_dir = ''      -- a custom name for the image dir
 }
 
 
@@ -46,7 +47,11 @@ print("Random Seed: " .. opt.manualSeed)
 torch.manualSeed(opt.manualSeed)
 torch.setdefaulttensortype('torch.FloatTensor')
 
-opt.netG_name = opt.name .. '/' .. opt.which_epoch .. '_net_G'
+if opt.custom_image_dir == '' then
+  opt.custom_image_dir = opt.name
+end
+
+opt.netG_name = opt.custom_image_dir .. '/' .. opt.which_epoch .. '_net_G'
 
 local data_loader = paths.dofile('data/data.lua')
 print('#threads...' .. opt.nThreads)
