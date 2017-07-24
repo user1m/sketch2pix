@@ -22,7 +22,7 @@ system=$(uname -s)
         for dir in *
         do
             if [ -d $dir ]; then
-				if [ "$dir" != "train" ] || [ "$dir" != "test" ]; then
+				if [ "$dir" != "train" ] && [ "$dir" != "test" ]; then
 					continue
 				fi
                 cd $dir
