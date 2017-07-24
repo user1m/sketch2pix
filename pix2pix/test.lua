@@ -50,8 +50,8 @@ torch.setdefaulttensortype('torch.FloatTensor')
 if opt.custom_image_dir == '' then
   opt.custom_image_dir = opt.name
 end
-
-opt.netG_name = opt.custom_image_dir .. '/' .. opt.which_epoch .. '_net_G'
+opt.netG_name = opt.name .. '/' .. opt.which_epoch .. '_net_G'
+opt.custom_image_dir = = opt.custom_image_dir .. '/' .. opt.which_epoch .. '_net_G'
 
 local data_loader = paths.dofile('data/data.lua')
 print('#threads...' .. opt.nThreads)
@@ -124,8 +124,8 @@ for n=1,math.floor(opt.how_many/opt.batchSize) do
         output = output:float()
         target = util.deprocess_batch(target):float()
     end
-    paths.mkdir(paths.concat(opt.results_dir, opt.netG_name .. '_' .. opt.phase))
-    local image_dir = paths.concat(opt.results_dir, opt.netG_name .. '_' .. opt.phase, 'images')
+    paths.mkdir(paths.concat(opt.results_dir, opt.custom_image_dir .. '_' .. opt.phase))
+    local image_dir = paths.concat(opt.results_dir, opt.custom_image_dir .. '_' .. opt.phase, 'images')
     paths.mkdir(image_dir)
     paths.mkdir(paths.concat(image_dir,'input'))
     paths.mkdir(paths.concat(image_dir,'output'))
@@ -155,7 +155,7 @@ for n=1,math.floor(opt.how_many/opt.batchSize) do
 end
 
 -- make webpage
-io.output(paths.concat(opt.results_dir,opt.netG_name .. '_' .. opt.phase, 'index.html'))
+io.output(paths.concat(opt.results_dir,opt.custom_image_dir .. '_' .. opt.phase, 'index.html'))
 
 io.write('<table style="text-align:center;">')
 
