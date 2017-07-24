@@ -7,8 +7,9 @@ if [ "$1" != "--path" ]; then
     exit 1;
 fi
 
-parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
-cd $parent_path/$2
+# parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+# cd $parent_path/$2
+cd $2
 
 system=$(uname -s)
 
