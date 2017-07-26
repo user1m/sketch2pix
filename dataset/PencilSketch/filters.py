@@ -24,7 +24,9 @@ class PencilSketch:
         effect.
     """
 
-    def __init__(self, width, height, bg_gray='/home/user1m/workspace/sketch2pix/dataset/PencilSketch/pencilsketch_bg.jpg'):
+    # def __init__(self, width, height,
+    # bg_gray='/home/user1m/workspace/sketch2pix/dataset/PencilSketch/pencilsketch_bg.jpg'):
+    def __init__(self, width, height, bg_gray=''):
         """Initialize parameters
 
             :param (width, height): Image size.
@@ -51,6 +53,6 @@ class PencilSketch:
 
         # if available, blend with background canvas
         if self.canvas is not None:
-            img_blend = cv2.multiply(img_blend, self.canvas, scale=1./256)
+            img_blend = cv2.multiply(img_blend, self.canvas, scale=1. / 256)
 
         return cv2.cvtColor(img_blend, cv2.COLOR_GRAY2RGB)
