@@ -1,7 +1,0 @@
-nohup python ./pix2pix-pytorch/train.py --dataroot ./dataset/celebfacesfull/face2edge --name celebfacesfull_generation --model pix2pix --which_model_netG unet_256 --which_direction BtoA --lambda_A 100 --dataset_mode aligned --no_lsgan --norm batch --nThreads 4 --loadSize 300 --fineSize 300 --gpu_ids 0,1 --niter 50 --niter_decay 50 --display_id 0 > output.log &
-
-
-nohup python ./pix2pix-pytorch/test.py --dataroot ./dataset/celebfacesfull/face2edge --name celebfacesfull_generation --model pix2pix --which_model_netG unet_256 --which_direction BtoA --dataset_mode aligned --norm batch --nThreads 4 --loadSize 300 --fineSize 300 --gpu_ids 0,1 --niter 50 --niter_decay 50  --display_id 0 > output.log &
-
-
-nohup python ./pix2pix-pytorch/train.py --dataroot ./dataset/celebfacesfull/face2edge --name celebfacesfull_generation --model pix2pix --which_model_netG unet_256 --which_direction BtoA --lambda_A 100 --dataset_mode aligned --no_lsgan --norm batch --gpu_ids 0,1 --batchSize 100 > output.log &
