@@ -1,0 +1,12 @@
+nohup python /home/user1m/workspace/sketch2pix/pix2pix-pytorch/train.py --dataroot /home/user1m/workspace/sketch2pix/dataset/small_sample_celeb_faces/face2edge --name small_sample_celeb_faces --model pix2pix --which_model_netG unet_256 --which_direction BtoA --lambda_A 100 --dataset_mode aligned --no_lsgan --norm batch --gpu_ids 0,1 --batchSize 50 --display_id 0 > output.log &
+
+
+nohup python /home/user1m/workspace/sketch2pix/pix2pix-pytorch/test.py --dataroot /home/user1m/workspace/sketch2pix/dataset/small_sample_celeb_faces/face2edge --name small_sample_celeb_faces --model pix2pix --which_model_netG unet_256 --which_direction BtoA --dataset_mode aligned --norm batch --display_id 0 > output.log &
+
+
+python test.py --dataroot ./datasets/facades --name facades_pix2pix --model pix2pix --which_model_netG unet_256 --which_direction BtoA --dataset_mode aligned --norm batch
+
+
+nohup python /home/user1m/workspace/sketch2pix/pix2pix-pytorch/train.py --dataroot /home/user1m/workspace/sketch2pix/dataset/celebfaces_tr5000_te1500/face2edge --name celebfaces_tr5000_te1500 --model pix2pix --which_model_netG unet_256 --which_direction BtoA --lambda_A 100 --dataset_mode aligned --no_lsgan --norm batch --gpu_ids 0,1 --batchSize 100 --display_id 0 > /home/user1m/workspace/sketch2pix/output.log &
+
+nohup python /home/user1m/workspace/sketch2pix/pix2pix-pytorch/test.py --dataroot /home/user1m/workspace/sketch2pix/dataset/celebfaces_tr5000_te1500/face2edge --name celebfaces_tr5000_te1500 --model pix2pix --which_model_netG unet_256 --which_direction BtoA --dataset_mode aligned --norm batch --display_id 0 > output.log &
