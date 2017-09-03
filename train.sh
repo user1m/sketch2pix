@@ -8,15 +8,19 @@ elif [ "$3" != "--name" ]; then
     echo "error: --name needed"
     echo "usage: ./train.sh --data-root ../dataset/celebfaces/face2edge --name edge2face_generation --direction BtoA"
     exit 1;
- elif [ "$5" != "--direction" ] ; then
+elif [ "$5" != "--direction" ] ; then
     echo "error: --direction needed"
     echo "usage: ./train.sh --data-root ../dataset/celebfaces/face2edge --name edge2face_generation --direction BtoA"
+    exit 1;
+elif [ "$7" != "--torch" ] ; then
+    echo "error: --torch missing"
+    echo "usage: ./test.sh --data-root ../dataset/celebfaces/face2edge --name edge2face_generation --direction BtoA --torch /root/torch/install/bin/th"
     exit 1;
 fi
 
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 cd $parent_path/pix2pix
 
-time (DATA_ROOT=$2 name=$4 which_direction=$6 /home/user1m/torch/install/bin/th train.lua)
+time (DATA_ROOT=$2 name=$4 which_direction=$6 $8 train.lua)
 #DATA_ROOT=../dataset/celebfaces/face2edge name=edge2face_generation which_direction=BtoA checkpoint_dir=checkpoints th train.lua
 
