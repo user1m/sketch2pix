@@ -82,6 +82,10 @@ Required parameters:
 
 `--torch` : path to `th` bin
 
+Optional parameters:
+
+`--custom_image_dir` : name of the directory you want results outputted to. Default uses the model name if not supplied.
+
 [More info here](https://github.com/phillipi/pix2pix#test)
 
 
