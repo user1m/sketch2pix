@@ -7,7 +7,7 @@ The goal of this project is to use Machine Learning to transform police sketches
 The overall motivation is to help the police better identify and catch the bad guys faster.
 
 ## Requirements
-* [imagemagick](https://imagemagick.org/script/index.php) 
+* [imagemagick](https://imagemagick.org/script/index.php)
 
 ## Creating Datasets
 1. Create a folder in `sketch2pix/dataset`
@@ -16,31 +16,31 @@ The overall motivation is to help the police better identify and catch the bad g
 3. Within each of those 3 folders create 2 folders `test`, `train`
 4. Put your output images in the `face` folder and split them however you want into the `test` and `train` folders. It's recommended you train on 70% of your images and test the other 30%
 5. Use the `sketch.sh` script to generate the edge versions (aka inputs) of your `face` images
-	* in the `sketch2pix/dataset` run 
+	* in the `sketch2pix/dataset` run
 
 	```bash
 	./sketch.sh --image-path /path/to/image_folder --face-path /path/to/face_folder  --sketch-path /path/to/sketch_folder
 	```
-	
+
 	* --sketch-path should be the `train` or `test` folder in `edge`
-	
+
 6. Use the `combine.sh` script to generate the combination images needed for `pix2pix` to train and test
-	* in the `sketch2pix/dataset` run 
-	
+	* in the `sketch2pix/dataset` run
+
 	```bash
 	./combine.sh --path faces-edge1
 	```
-	
+
 	* **This command will output to the `face2edge` folder**
 
 
 ## Training a Model
 In `sketch2pix`
 
-Run 
+Run
 
 ```bash
-./train.sh --data-root ../dataset/faces-edge1/face2edge --name edge2face_edge1_generation --direction BtoA
+./train.sh --data-root ../dataset/celebfaces/face2edge --name edge2face_generation --direction BtoA --torch /root/torch/install/bin/th
 ```
 Required parameters:
 
@@ -49,6 +49,8 @@ Required parameters:
 `--name` : name of experiment
 
 `--direction` : `BtoA` or `AtoB`
+
+`--torch` : path to `th` bin
 
 As the model trains checkpoints will be stored in:
 
@@ -64,10 +66,10 @@ where `--name` is the value passed into the scripts from above.
 ## Testing a Model
 In `sketch2pix`
 
-Run 
+Run
 
 ```bash
-./test.sh --data-root ../dataset/faces-edge1/face2edge --name edge2face_edge1_generation --direction BtoA
+./test.sh --data-root ../dataset/celebfaces/face2edge --name edge2face_generation --direction BtoA --torch /root/torch/install/bin/th [--custom_image_dir my_named_gen]
 ```
 
 Required parameters:
@@ -78,11 +80,13 @@ Required parameters:
 
 `--direction` : `BtoA` or `AtoB`
 
+`--torch` : path to `th` bin
+
 [More info here](https://github.com/phillipi/pix2pix#test)
 
 
 ## Validating your models
-After testing your results are stored in 
+After testing your results are stored in
 
 ```
 sketch2pix/pix2pix/results/{--name}/latest_net_G_test/index.html
