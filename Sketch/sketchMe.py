@@ -258,8 +258,8 @@ def compute_vgg():
 
 # In[14]:
 
-m = 200
-n = 200
+m = 300  # 200
+n = 300  # 200
 sketch_dim = (m, n)
 img_dim = (m, n, 3)
 model = full_model()
