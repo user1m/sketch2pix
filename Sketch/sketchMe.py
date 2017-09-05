@@ -50,7 +50,7 @@ base_model = vgg16.VGG16(weights='imagenet', include_top=False)
 vgg = Model(input=base_model.input,
             output=base_model.get_layer('block2_conv2').output)
 
-
+script_dir = os.path.dirname(os.path.realpath(__file__))
 # In[4]:
 
 # def load_file_names(path):
@@ -267,8 +267,7 @@ optim = Adam(lr=1e-4, beta_1=0.9, beta_2=0.999, epsilon=1e-8)
 model.compile(loss=[pixel_loss, feature_loss],
               loss_weights=[1, 1], optimizer=optim)
 # model.load_weights('newWeights/weights_77')
-model.load_weights(os.path.dirname(
-    os.path.realpath(__file__)) + '/newWeights/weights_26')
+model.load_weights(script_dir + '/newWeights/weights_26')
 
 
 # In[15]:
@@ -334,7 +333,7 @@ def predictAndPlot2(input_path='sdata', label_path='pdata', num_images=1, trunc=
         a = fig.add_subplot(1, 3, 2)
 #       imgplot = plt.imshow(result[0])
 #       write_path1 = str('../images/prediction/' + file )
-        write_path = str('results/' + file)
+        write_path = script_dir + str('/results/' + file)
         plt.imsave(write_path, result[0])
 
         a.set_title('Prediction')
