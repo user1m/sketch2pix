@@ -9,6 +9,7 @@
 
 
 # Ignore these:
+**/.vscode
 **/data*/
 **/checkpoints/
 **/results/
@@ -16,7 +17,7 @@
 **/pdata*/
 **/sdata*/
 **/prediction*/
-**/newWeights
+**/newWeights/
 
 **/*.log
 **/*.pth
