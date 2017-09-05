@@ -21,10 +21,8 @@
 **/*.log
 **/*.pth
 **/*.DS_Store
-pix2pix-pytorch/*.git/
-pix2pix-pytorch/*.gitignore
-pix2pix/*.git/
-pix2pix/*.gitignore
+pix2pix-pytorch/*.git*
+pix2pix/*.git*
 
 
 # Don't ignore these:
