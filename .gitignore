@@ -1,0 +1,40 @@
+# Ignore Everything to start:
+*~
+
+# Don't ignore these
+!Sketch/
+!pix2pix-pytorch/
+!pix2pix/
+!example-results.png
+
+
+# Ignore these:
+**/data*/
+**/checkpoints/
+**/results/
+**/.ipynb_checkpoints/
+**/pdata*/
+**/sdata*/
+**/prediction*/
+**/newWeights
+
+**/*.log
+**/*.pth
+**/*.DS_Store
+pix2pix-pytorch/*.git/
+pix2pix-pytorch/*.gitignore
+pix2pix/*.git/
+pix2pix/*.gitignore
+
+
+# Don't ignore these:
+!dataset/PencilSketch
+!checkpoints/celebfaces_tr5000_te1500/latest_net_*
+!dataset/celebfaces_tr5000_te1500/face2edge
+!Sketch/newWeights/weights_26
+
+**/!*.sh
+**/!*.txt
+**/!*.md
+**/!*.zip
+**/!*.lua

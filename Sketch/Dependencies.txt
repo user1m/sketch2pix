@@ -1,0 +1,31 @@
+Try running just the import cell, and solve dependencies. Hopefully the packages below should be enough.
+
+Python 3.5 (should be compatible with 2.7 too, but I haven't tried)
+Tensorflow-gpu 1.1.0 
+Keras 2.0.6 (Major version is important, 1.0 will create issues)
+tqdm
+scipy
+PIL (pip install pillow will install it, 4.2.1)
+sklearn
+scikit -learn
+six
+sip
+h5py
+opencv3 (3.2, not sure if version is important)
+
+
+
+Upgrade Keras:
+pip install git+git://github.com/fchollet/keras.git --upgrade --no-deps
+
+Fix SegFualt Issue:
+#import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('TkAgg')
+from matplotlib import pyplot as plt
+plt.interactive('True')
+
+
+Setup Jupyter Notebooks:
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-jupyter-notebook-to-run-ipython-on-ubuntu-16-04
+
