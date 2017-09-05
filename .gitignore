@@ -1,5 +1,5 @@
 # Ignore Everything to start:
-*~
+*
 
 # Don't ignore these
 !Sketch/
@@ -7,6 +7,17 @@
 !pix2pix/
 !example-results.png
 
+!dataset/PencilSketch
+!checkpoints/celebfaces_tr5000_te1500/latest_net_*
+!dataset/celebfaces_tr5000_te1500/face2edge
+!Sketch/newWeights/weights_26
+!Sketch/newWeights/weights_77
+
+**/!*.sh
+**/!*.txt
+**/!*.md
+**/!*.zip
+**/!*.lua
 
 # Ignore these:
 **/.vscode
@@ -25,15 +36,3 @@
 pix2pix-pytorch/*.git*
 pix2pix/*.git*
 
-
-# Don't ignore these:
-!dataset/PencilSketch
-!checkpoints/celebfaces_tr5000_te1500/latest_net_*
-!dataset/celebfaces_tr5000_te1500/face2edge
-!Sketch/newWeights/weights_26
-
-**/!*.sh
-**/!*.txt
-**/!*.md
-**/!*.zip
-**/!*.lua
