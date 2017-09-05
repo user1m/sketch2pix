@@ -363,4 +363,4 @@ def predictAndPlot2(input_path='sdata', label_path='pdata', num_images=1, trunc=
 
 # In[ ]:
 # predictAndPlot2('sdata', 'pdata', 10)
-predictAndPlot2(sys.argv[1], sys.argv[2], 1)
+predictAndPlot2(sys.argv[1], sys.argv[2], 1, 0)
