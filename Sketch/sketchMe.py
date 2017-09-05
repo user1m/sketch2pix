@@ -273,8 +273,8 @@ model.load_weights(script_dir + '/newWeights/weights_26')
 # In[15]:
 
 def predictAndPlot(input_path, label_path):
-    m = 200
-    n = 200
+    m = 300  # 200
+    n = 300  # 200
     sketch_dim = (m, n)
     img_dim = (m, n, 3)
     sketch = cv.imread(input_path, 0)
@@ -310,8 +310,8 @@ def predictAndPlot(input_path, label_path):
 
 def predictAndPlot2(input_path='sdata', label_path='pdata', num_images=1, trunc=4):
     count = 0
-    m = 200
-    n = 200
+    m = 300  # 200
+    n = 300  # 200
     sketch_dim = (m, n)
     img_dim = (m, n, 3)
     for file in os.listdir(input_path):
