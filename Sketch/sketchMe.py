@@ -267,7 +267,7 @@ optim = Adam(lr=1e-4, beta_1=0.9, beta_2=0.999, epsilon=1e-8)
 model.compile(loss=[pixel_loss, feature_loss],
               loss_weights=[1, 1], optimizer=optim)
 # model.load_weights('newWeights/weights_77')
-model.load_weights(os.path.realpath(__file__) + '/newWeights/weights_26')
+model.load_weights(os.path.realpath(__file__) + '../newWeights/weights_26')
 
 
 # In[15]:
