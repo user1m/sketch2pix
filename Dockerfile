@@ -23,7 +23,7 @@ WORKDIR /home
 ENV PORT 80
 
 # Expose ports
-EXPOSE 80 8080
+EXPOSE 80 8080 443
 
 # Copy Project & API
 COPY /sketch2pix sketch2pix 
