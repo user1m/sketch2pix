@@ -121,6 +121,7 @@ On how to improve it
 ## Acknowledgements
 
 * [pix2pix](https://github.com/phillipi/pix2pix)
+* [rakshitw/Sketch](https://github.com/rakshitw/Sketch)
 
 ## Contributors
 
