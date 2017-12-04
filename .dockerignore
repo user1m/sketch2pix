@@ -1,41 +1,40 @@
 # Ignore Everything to start:
-*
+#*
 
 # Un-ignore these dirs:
-!api/
-!sketch2pix/
-!sketchme-webapp/
+#!api/
+#!sketch2pix/
+#!sketchme-webapp/
 
 # Ignore these:
-api/node_modules/
-api/uploads/
-api/savedImages/
+#api/node_modules/
+#api/uploads/
+#api/savedImages/
 
-sketch2pix/dataset/
-sketch2pix/checkpoints/
-sketch2pix/data-sets/
-sketch2pix/pix2pix/
-sketch2pix/results/
-sketch2pix/Sketch/pdata*/
-sketch2pix/Sketch/sdata*/
-sketch2pix/Sketch/predictions*/
-sketch2pix/Sketch/*.ipynb
-sketch2pix/Sketch/newWeights
+data*/
+checkpoints/
+pix2pix/
+results/
+Sketch/pdata*/
+Sketch/sdata*/
+Sketch/predictions*/
+Sketch/*.ipynb
+Sketch/newWeights
 
-**/*.git
-**/*.gitignore
-**/*.md
-**/*.txt
-**/*.png
-**/*.log
-**/node_modules
+*.git
+*.gitignore
+*.md
+*.txt
+*.png
+*.log
+node_modules/
 
 # Don't ignore these:
-!sketch2pix/dataset/PencilSketch
-!sketch2pix/dataset/*.sh
-!sketch2pix/checkpoints/celebfaces_tr5000_te1500/latest_net_*
-!sketch2pix/Sketch/newWeights/weights_26
-!sketch2pix/Sketch/newWeights/weights_77
+!dataset/PencilSketch/
+!dataset/*.sh
+!checkpoints/celebfaces_tr5000_te1500/latest_net_*
+!Sketch/newWeights/weights_26
+!Sketch/newWeights/weights_77
 !requirements.txt
 
 

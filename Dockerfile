@@ -1,13 +1,10 @@
-## SHOULD BE RAN IN THE WORKSPACE DIR ###
-## .dockerignore needs to be in the context ##
-## sudo docker build -f /home/user1m/workspace/sketch2pix/Dockerfile -t user1m/sketchme .
-
 # Start with Ubuntu base image
 FROM user1m/pix2pix
 MAINTAINER Claudius Mbemba <clmb@microsoft.com>
 
 # Run image updates
-RUN sudo apt-get update; curl -sL "https://deb.nodesource.com/setup_8.x" | sudo bash -; sudo apt-get install -y nodejs; sudo mv /usr/bin/nodejs /usr/bin/node
+RUN sudo apt-get update; curl -sL "https://deb.nodesource.com/setup_8.x" | sudo bash -; sudo apt-get install -y nodejs; 
+#sudo mv -f /usr/bin/nodejs /usr/bin/node
 
 # Install Py Deps #sudo pip install -r requirements.txt --no-index
 RUN wget https://bootstrap.pypa.io/get-pip.py; python get-pip.py; cp /usr/local/bin/pip /usr/bin; pip -V; pip install requests[security]
@@ -27,7 +24,7 @@ EXPOSE 80 8080 443
 
 # Copy Project & API
 COPY /sketch2pix sketch2pix 
-COPY /api api
+COPY /sketchme-api api
 COPY /sketchme-webapp app
 
 # Setup node
