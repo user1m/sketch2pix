@@ -1,21 +1,17 @@
 # Start with Ubuntu base image
-# FROM user1m/pix2pix
-FROM ubuntu:16.04
+FROM user1m/pix2pix
 MAINTAINER Claudius Mbemba <clmb@microsoft.com>
 
 # Run image updates
-RUN apt-get -y update --fix-missing; apt-get install -y apt-utils; apt-get install -y build-essential;
-#apt-get -y upgrade;
-RUN apt-get install -y curl; curl -sL "https://deb.nodesource.com/setup_8.x" | bash -; apt-get install -y npm;
-#mv -f /usr/bin/nodejs /usr/bin/node
+RUN sudo apt-get update; curl -sL "https://deb.nodesource.com/setup_8.x" | sudo bash -; sudo apt-get install -y nodejs;
+#sudo mv -f /usr/bin/nodejs /usr/bin/node
 
-# Install Py Deps  pip install -r requirements.txt --no-index
-#RUN wget https://bootstrap.pypa.io/get-pip.py; python get-pip.py; cp /usr/local/bin/pip /usr/bin; pip -V;
-RUN apt-get install -y python-pip; pip install --upgrade pip; pip install requests[security];
-RUN pip install opencv-python; pip install http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl; pip install torchvision dominate
+# Install Py Deps #sudo pip install -r requirements.txt --no-index
+RUN wget https://bootstrap.pypa.io/get-pip.py; python get-pip.py; cp /usr/local/bin/pip /usr/bin; pip -V; pip install requests[security]
+RUN sudo pip install opencv-python; pip install http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl; pip install torchvision dominate
 
 # Install deps for Sketch tf-model
-RUN apt-get install -y python-tk; pip install matplotlib pandas h5py tqdm sklearn keras tensorflow;
+RUN sudo apt-get install -y python-tk; pip install matplotlib pandas h5py tqdm sklearn keras tensorflow
 
 # SSH
 RUN apt-get update \
