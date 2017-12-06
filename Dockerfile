@@ -1,13 +1,18 @@
 # Start with Ubuntu base image
-FROM user1m/pix2pix
+#FROM user1m/pix2pix
+FROM ubuntu:14.04
 MAINTAINER Claudius Mbemba <clmb@microsoft.com>
 
 # Run image updates
-RUN sudo apt-get update; curl -sL "https://deb.nodesource.com/setup_8.x" | sudo bash -; sudo apt-get install -y nodejs;
+RUN sudo apt-get update
+# Install Node & NPM
+RUN sudo apt-get install -y curl; curl -sL "https://deb.nodesource.com/setup_8.x" | sudo bash -; sudo apt-get install -y nodejs;
 #sudo mv -f /usr/bin/nodejs /usr/bin/node
 
-# Install Py Deps #sudo pip install -r requirements.txt --no-index
-RUN wget https://bootstrap.pypa.io/get-pip.py; python get-pip.py; cp /usr/local/bin/pip /usr/bin; pip -V; pip install requests[security]
+# Install pix2pix Py Deps
+#sudo pip install -r requirements.txt --no-index
+RUN sudo apt-get update; sudo apt-get install -y python python-dev
+RUN sudo apt-get install -y wget; wget https://bootstrap.pypa.io/get-pip.py; python get-pip.py; cp /usr/local/bin/pip /usr/bin; pip -V; pip install requests[security]
 RUN sudo pip install opencv-python; pip install http://download.pytorch.org/whl/cu80/torch-0.2.0.post3-cp27-cp27mu-manylinux1_x86_64.whl; pip install torchvision dominate
 
 # Install deps for Sketch tf-model
