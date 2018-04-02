@@ -12,7 +12,7 @@ pdata*/
 sdata*/
 prediction*/
 newWeights/
-__pycache__/
+**/__pycache__/
 
 *.log
 *.pth

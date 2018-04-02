@@ -38,16 +38,18 @@ RUN service ssh start
 ENV PORT 80
 
 # Set ~/home as working directory
-WORKDIR /home
+WORKDIR /workdir/
 
 # Copy Project & API
-COPY /sketch2pix sketch2pix
-COPY /sketchme-api api
-COPY /sketchme-webapp app
+COPY ./dataset/PencilSketch /workdir/model/dataset/PencilSketch/
+COPY ./Sketch/ /workdir/model/Sketch/
+COPY ./scripts/ /scripts
+COPY ./sketchme-api /workdir/app/
 
 # Setup node
-RUN cd api; mkdir uploads savedImages; npm i; cd ../app; npm i
+# RUN cd /workdir/app/; mkdir uploads savedImages; npm i
+ENTRYPOINT /scripts/init.sh
 
-# Start APP and API
-CMD cd app; npm start & cd ../api; npm start
+# # Start API
+# CMD cd /workdir/app/; npm start &; bash
 

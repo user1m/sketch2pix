@@ -1,4 +1,3 @@
-
 # coding: utf-8
 # python sketchMe.py  (1)path/to/input (2)path/to/target
 # In[1]:
@@ -37,27 +36,24 @@ import cv2
 from PIL import Image
 from scipy.misc import imresize
 
-
 # In[2]:
 
-
 np.random.seed(1337)  # for reproducibility
-
 
 # In[3]:
 
 base_model = vgg16.VGG16(weights='imagenet', include_top=False)
-vgg = Model(input=base_model.input,
-            output=base_model.get_layer('block2_conv2').output)
-
+vgg = Model(
+    input=base_model.input, output=base_model.get_layer('block2_conv2').output)
 script_dir = os.path.dirname(os.path.realpath(__file__))
+
 # In[4]:
 
 # def load_file_names(path):
 #     return os.listdir(path)
 
-
 # In[5]:
+
 
 def imshow(x, gray=False):
     plt.imshow(x, cmap='gray' if gray else None)
@@ -65,6 +61,7 @@ def imshow(x, gray=False):
 
 
 # In[6]:
+
 
 def get_features(Y):
     Z = deepcopy(Y)
@@ -74,6 +71,7 @@ def get_features(Y):
 
 
 # In[7]:
+
 
 def preprocess_vgg(x, data_format=None):
     if data_format is None:
@@ -99,12 +97,14 @@ def preprocess_vgg(x, data_format=None):
 
 # In[8]:
 
+
 def feature_loss(y_true, y_pred):
     return K.sqrt(K.mean(K.square(y_true - y_pred)))
 
 
 def pixel_loss(y_true, y_pred):
-    return K.sqrt(K.mean(K.square(y_true - y_pred))) + 0.00001 * total_variation_loss(y_pred)
+    return K.sqrt(K.mean(
+        K.square(y_true - y_pred))) + 0.00001 * total_variation_loss(y_pred)
 
 
 def adv_loss(y_true, y_pred):
@@ -122,6 +122,7 @@ def total_variation_loss(y_pred):
 
 
 # In[9]:
+
 
 def preprocess_VGG(x, dim_ordering='default'):
     if dim_ordering == 'default':
@@ -145,6 +146,7 @@ def preprocess_VGG(x, dim_ordering='default'):
 
 # In[10]:
 
+
 def generator_model(input_img):
 
     # Encoder
@@ -152,60 +154,61 @@ def generator_model(input_img):
     x = Conv2D(32, (2, 2), activation='relu', padding='same')(x)
     x = MaxPooling2D((2, 2), padding='same')(x)
 
-    x = Conv2D(64, (3, 3), activation='relu',
-               padding='same', name='block2_conv1')(x)
+    x = Conv2D(
+        64, (3, 3), activation='relu', padding='same', name='block2_conv1')(x)
     x = Conv2D(64, (2, 2), activation='relu', padding='same')(x)
     x = MaxPooling2D((2, 2), padding='same')(x)
 
-    x = Conv2D(128, (3, 3), activation='relu',
-               padding='same', name='block3_conv1')(x)
+    x = Conv2D(
+        128, (3, 3), activation='relu', padding='same', name='block3_conv1')(x)
     x = Conv2D(128, (3, 3), activation='relu', padding='same')(x)
     x = MaxPooling2D((2, 2), padding='same')(x)
 
-    x = Conv2D(256, (3, 3), activation='relu',
-               padding='same', name='block4_conv1')(x)
+    x = Conv2D(
+        256, (3, 3), activation='relu', padding='same', name='block4_conv1')(x)
     res = Conv2D(256, (3, 3), activation='relu', padding='same')(x)
     x = layers.add([x, res])
     res = Conv2D(256, (3, 3), activation='relu', padding='same')(x)
     encoded = layers.add([x, res])
 
     # Decoder
-    res = Conv2D(256, (3, 3), activation='relu',
-                 padding='same', name='block5_conv1')(encoded)
+    res = Conv2D(
+        256, (3, 3), activation='relu', padding='same',
+        name='block5_conv1')(encoded)
     x = layers.add([encoded, res])
     res = Conv2D(256, (3, 3), activation='relu', padding='same')(x)
     x = layers.add([x, res])
     res = Conv2D(256, (3, 3), activation='relu', padding='same')(x)
     x = layers.add([x, res])
 
-    x = Conv2D(128, (2, 2), activation='relu',
-               padding='same', name='block6_conv1')(x)
+    x = Conv2D(
+        128, (2, 2), activation='relu', padding='same', name='block6_conv1')(x)
     x = UpSampling2D((2, 2))(x)
 
-    x = Conv2D(128, (3, 3), activation='relu',
-               padding='same', name='block7_conv1')(x)
+    x = Conv2D(
+        128, (3, 3), activation='relu', padding='same', name='block7_conv1')(x)
     res = Conv2D(128, (3, 3), activation='relu', padding='same')(x)
     x = layers.add([x, res])
     res = Conv2D(128, (3, 3), activation='relu', padding='same')(x)
     x = layers.add([x, res])
 
-    x = Conv2D(64, (2, 2), activation='relu',
-               padding='same', name='block8_conv1')(x)
+    x = Conv2D(
+        64, (2, 2), activation='relu', padding='same', name='block8_conv1')(x)
     x = UpSampling2D((2, 2))(x)
 
-    x = Conv2D(64, (3, 3), activation='relu',
-               padding='same', name='block9_conv1')(x)
+    x = Conv2D(
+        64, (3, 3), activation='relu', padding='same', name='block9_conv1')(x)
     res = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
     x = layers.add([x, res])
     res = Conv2D(64, (3, 3), activation='relu', padding='same')(x)
     x = layers.add([x, res])
 
-    x = Conv2D(32, (2, 2), activation='relu',
-               padding='same', name='block10_conv1')(x)
+    x = Conv2D(
+        32, (2, 2), activation='relu', padding='same', name='block10_conv1')(x)
     x = UpSampling2D((2, 2))(x)
 
-    x = Conv2D(32, (3, 3), activation='relu',
-               padding='same', name='block11_conv1')(x)
+    x = Conv2D(
+        32, (3, 3), activation='relu', padding='same', name='block11_conv1')(x)
     res = Conv2D(32, (3, 3), activation='relu', padding='same')(x)
     x = layers.add([x, res])
     decoded = Conv2D(3, (3, 3), activation='sigmoid', padding='same')(x)
@@ -215,6 +218,7 @@ def generator_model(input_img):
 
 # In[11]:
 
+
 def feat_model(img_input):
     # extract vgg feature
     vgg_16 = vgg16.VGG16(
@@ -223,8 +227,8 @@ def feat_model(img_input):
     for layer in vgg_16.layers:
         layer.trainable = False
 
-    vgg_first2 = Model(input=vgg_16.input,
-                       output=vgg_16.get_layer('block2_conv2').output)
+    vgg_first2 = Model(
+        input=vgg_16.input, output=vgg_16.get_layer('block2_conv2').output)
     Norm_layer = Lambda(preprocess_VGG)
     x_VGG = Norm_layer(img_input)
     feat = vgg_first2(x_VGG)
@@ -232,6 +236,7 @@ def feat_model(img_input):
 
 
 # In[12]:
+
 
 def full_model():
     input_img = Input(shape=(m, n, 1))
@@ -243,10 +248,12 @@ def full_model():
 
 # In[13]:
 
+
 def compute_vgg():
     base_model = vgg16.VGG16(weights='imagenet', include_top=False)
-    model = Model(input=base_model.input,
-                  output=base_model.get_layer('block2_conv2').output)
+    model = Model(
+        input=base_model.input,
+        output=base_model.get_layer('block2_conv2').output)
     num_batches = num_images // batch_size
     for batch in range(num_batches):
         _, Y = get_batch(batch, X=False)
@@ -264,13 +271,13 @@ sketch_dim = (m, n)
 img_dim = (m, n, 3)
 model = full_model()
 optim = Adam(lr=1e-4, beta_1=0.9, beta_2=0.999, epsilon=1e-8)
-model.compile(loss=[pixel_loss, feature_loss],
-              loss_weights=[1, 1], optimizer=optim)
+model.compile(
+    loss=[pixel_loss, feature_loss], loss_weights=[1, 1], optimizer=optim)
 # model.load_weights('newWeights/weights_77')
 model.load_weights(script_dir + '/newWeights/weights_77')
 
-
 # In[15]:
+
 
 def predictAndPlot(input_path, label_path):
     m = 200
@@ -287,28 +294,32 @@ def predictAndPlot(input_path, label_path):
     #### Plotting ####
     # fig = plt.figure()
     # a = fig.add_subplot(1, 3, 1)
-#    imgplot = plt.imshow(sketch[0].reshape(m, n), cmap='gray')
-    # a.set_title('Sketch')
-    # plt.axis("off")
-    # a = fig.add_subplot(1, 3, 2)
-#    imgplot = plt.imshow(result[0])
-    # a.set_title('Prediction')
-    # plt.axis("off")
-    # a = fig.add_subplot(1, 3, 3)
-#   plt.imshow(cv2.cvtColor(actual, cv2.COLOR_BGR2RGB))
-    # a.set_title('label')
-    # plt.axis("off")
-    # plt.show()
 
+
+#    imgplot = plt.imshow(sketch[0].reshape(m, n), cmap='gray')
+# a.set_title('Sketch')
+# plt.axis("off")
+# a = fig.add_subplot(1, 3, 2)
+#    imgplot = plt.imshow(result[0])
+# a.set_title('Prediction')
+# plt.axis("off")
+# a = fig.add_subplot(1, 3, 3)
+#   plt.imshow(cv2.cvtColor(actual, cv2.COLOR_BGR2RGB))
+# a.set_title('label')
+# plt.axis("off")
+# plt.show()
 
 # In[16]:
 
 # predictAndPlot('rsketch/f1-001-01-sz1.jpg','rphoto/f1-001-01.jpg')
 
-
 # In[23]:
 
-def predictAndPlot2(input_path='sdata', label_path='pdata', num_images=1, trunc=4):
+
+def predictAndPlot2(input_path='sdata',
+                    label_path='pdata',
+                    num_images=1,
+                    trunc=4):
     count = 0
     m = 200
     n = 200
@@ -327,12 +338,12 @@ def predictAndPlot2(input_path='sdata', label_path='pdata', num_images=1, trunc=
         result, _ = model.predict(sketch)
         # fig = plt.figure()
         # a = fig.add_subplot(1, 3, 1)
-#       imgplot = plt.imshow(sketch[0].reshape(m,n), cmap='gray')
+        #       imgplot = plt.imshow(sketch[0].reshape(m,n), cmap='gray')
         # a.set_title('Sketch')
         # plt.axis("off")
         # a = fig.add_subplot(1, 3, 2)
-#       imgplot = plt.imshow(result[0])
-#       write_path1 = str('../images/prediction/' + file )
+        #       imgplot = plt.imshow(result[0])
+        #       write_path1 = str('../images/prediction/' + file )
         write_path = script_dir + str('/results/' + file)
         plt.imsave(write_path, result[0])
 
@@ -340,14 +351,14 @@ def predictAndPlot2(input_path='sdata', label_path='pdata', num_images=1, trunc=
         # plt.axis("off")
         # a = fig.add_subplot(1, 3, 3)
         act2 = cv2.cvtColor(actual, cv2.COLOR_BGR2RGB)
-#       plt.imsave(write_path, act2)
-#       plt.imshow(cv2.cvtColor(actual, cv2.COLOR_BGR2RGB))
+        #       plt.imsave(write_path, act2)
+        #       plt.imshow(cv2.cvtColor(actual, cv2.COLOR_BGR2RGB))
 
         # a.set_title('label')
         # plt.axis("off")
         # plt.show()
         count += 1
-        if(count == num_images):
+        if (count == num_images):
             break
 
 
@@ -355,11 +366,9 @@ def predictAndPlot2(input_path='sdata', label_path='pdata', num_images=1, trunc=
 
 #predictAndPlot2('../sdata', '../qdata',12)
 
-
 # In[30]:
 
 #predictAndPlot2('../sdata3', '../pdata3',4)
-
 
 # In[ ]:
 # predictAndPlot2('sdata', 'pdata', 10)

@@ -5,7 +5,6 @@ import math
 import sys
 from PIL import Image, ImageDraw
 
-
 DEFAULTS = {
     'width': 0,
     'height': 0,
@@ -67,7 +66,6 @@ def saturation(r, g, b):
 
 
 class SmartCrop(object):
-
     def __init__(self, options=DEFAULTS):
         self.options = options
         for key, val in options.items():
@@ -81,22 +79,28 @@ class SmartCrop(object):
         scale = 1
         prescale = 1
         if options['width'] and options['height']:
-            scale = min(image.size[0] / options['width'], image.size[1] / options['height'])
+            scale = min(image.size[0] / options['width'],
+                        image.size[1] / options['height'])
             options['crop_width'] = int(math.floor(options['width'] * scale))
             options['crop_height'] = int(math.floor(options['height'] * scale))
             # img = 100x100, width = 95x95, scale = 100/95, 1/scale > min
             # don't set minscale smaller than 1/scale
             # -> don't pick crops that need upscaling
-            options['min_scale'] = min(options['max_scale'] or SmartCrop.DEFAULTS.max_scale,
-                                       max(1 / scale, (options['min_scale'] or SmartCrop.DEFAULTS.min_scale)))
+            options['min_scale'] = min(
+                options['max_scale'] or SmartCrop.DEFAULTS.max_scale,
+                max(1 / scale,
+                    (options['min_scale'] or SmartCrop.DEFAULTS.min_scale)))
         if options['width'] and options['height']:
             if options['prescale'] != False:
                 prescale = 1. / scale / options['min_scale']
                 if prescale < 1:
-                    image.thumbnail(
-                        (int(image.size[0] * prescale), int(image.size[1] * prescale)), Image.ANTIALIAS)
-                    self.options['crop_width'] = int(math.floor(options['crop_width'] * prescale))
-                    self.options['crop_height'] = int(math.floor(options['crop_height'] * prescale))
+                    image.thumbnail((int(image.size[0] * prescale),
+                                     int(image.size[1] * prescale)),
+                                    Image.ANTIALIAS)
+                    self.options['crop_width'] = int(
+                        math.floor(options['crop_width'] * prescale))
+                    self.options['crop_height'] = int(
+                        math.floor(options['crop_height'] * prescale))
                 else:
                     prescale = 1
         result = self.analyse(image)
@@ -132,9 +136,10 @@ class SmartCrop(object):
         _output = self.detect_saturation(image, _output)
 
         score_output = copy.copy(_output)
-        score_output.thumbnail((int(math.ceil(image.size[0] / options['score_down_sample'])),
-                                int(math.ceil(image.size[1] / options['score_down_sample']))),
-                               Image.ANTIALIAS)
+        score_output.thumbnail(
+            (int(math.ceil(image.size[0] / options['score_down_sample'])),
+             int(math.ceil(image.size[1] / options['score_down_sample']))),
+            Image.ANTIALIAS)
 
         topScore = -sys.maxsize
         topCrop = None
@@ -152,25 +157,29 @@ class SmartCrop(object):
         if options['debug'] and topCrop:
             _debug_output = copy.copy(_output)
             _od = _debug_output.getdata()
-            draw_image = Image.new("RGBA",
-                                   (int(math.floor(topCrop['width'])),
-                                    int(math.floor(topCrop['height']))), (255, 0, 0, 25))
+            draw_image = Image.new(
+                "RGBA", (int(math.floor(topCrop['width'])),
+                         int(math.floor(topCrop['height']))), (255, 0, 0, 25))
             _d = ImageDraw.Draw(draw_image)
             # _d.rectangle(((topCrop['x'], topCrop['y']),
-            _d.rectangle(((0, 0),
-                          (topCrop['width'], topCrop['height'])),
-                         outline=(255, 0, 0))
-            for y in range(_output.size[1]):        # height
-                for x in range(_output.size[0]):    # width
+            _d.rectangle(
+                ((0, 0), (topCrop['width'], topCrop['height'])),
+                outline=(255, 0, 0))
+            for y in range(_output.size[1]):  # height
+                for x in range(_output.size[0]):  # width
                     p = y * _output.size[0] + x
                     importance = self.importance(topCrop, x, y)
                     if importance > 0:
                         _od.putpixel(
-                            (x, y), (_od[p][0], int(_od[p][1] + importance * 32), _od[p][2]))
+                            (x, y),
+                            (_od[p][0], int(_od[p][1] + importance * 32),
+                             _od[p][2]))
                     if importance < 0:
-                        _od.putpixel(
-                            (x, y), (int(_od[p][0] + importance * -64), _od[p][1], _od[p][2]))
-            _debug_output.paste(draw_image, (topCrop['x'], topCrop['y']), draw_image.split()[3])
+                        _od.putpixel((x, y),
+                                     (int(_od[p][0] + importance * -64),
+                                      _od[p][1], _od[p][2]))
+            _debug_output.paste(draw_image, (topCrop['x'], topCrop['y']),
+                                draw_image.split()[3])
             _debug_output.save('debug.jpg')
         return result
 
@@ -204,8 +213,10 @@ class SmartCrop(object):
                 if skin > options['skin_threshold'] \
                         and lightness >= options['skin_brightness_min'] \
                         and lightness <= options['skin_brightness_max']:
-                    o.putpixel((x, y), (int(
-                        (skin - options['skin_threshold']) * (255 / (1 - options['skin_threshold']))), _od[p][1], _od[p][2]))
+                    o.putpixel((x, y),
+                               (int((skin - options['skin_threshold']) *
+                                    (255 / (1 - options['skin_threshold']))),
+                                _od[p][1], _od[p][2]))
                 else:
                     o.putpixel((x, y), (0, _od[p][1], _od[p][2]))
         return o
@@ -224,8 +235,11 @@ class SmartCrop(object):
                 if sat > options['saturation_threshold'] \
                         and lightness >= options['saturation_brightness_min'] \
                         and lightness <= options['saturation_brightness_max']:
-                    o.putpixel((x, y), (_od[p][0], _od[p][1], int(
-                        (sat - options['saturation_threshold']) * (255 / (1 - options['saturation_threshold'])))))
+                    o.putpixel((x, y),
+                               (_od[p][0], _od[p][1],
+                                int((sat - options['saturation_threshold']) *
+                                    (255 /
+                                     (1 - options['saturation_threshold'])))))
                 else:
                     o.putpixel((x, y), (_od[p][0], _od[p][1], 0))
         return o
@@ -238,9 +252,13 @@ class SmartCrop(object):
         minDimension = min(width, height)
         crop_width = options['crop_width'] or minDimension
         crop_height = options['crop_height'] or minDimension
-        scales = [i / 100. for i in range(int(options['max_scale'] * 100),
-                                          int((options['min_scale'] - options['scale_step']) * 100),
-                                          -int(options['scale_step'] * 100))]
+        scales = [
+            i / 100.
+            for i in range(
+                int(options['max_scale'] * 100),
+                int((options['min_scale'] - options['scale_step']
+                     ) * 100), -int(options['scale_step'] * 100))
+        ]
         for scale in scales:
             for y in range(0, height, options['step']):
                 if not (y + crop_height * scale <= height):
@@ -257,11 +275,12 @@ class SmartCrop(object):
         return crops
 
     def score(self, output, crop):
-        score = {'detail': 0,
-                 'saturation': 0,
-                 'skin': 0,
-                 'total': 0,
-                 }
+        score = {
+            'detail': 0,
+            'saturation': 0,
+            'skin': 0,
+            'total': 0,
+        }
         options = self.options
         od = output.getdata()
         downSample = options['score_down_sample']
@@ -271,16 +290,20 @@ class SmartCrop(object):
         output_width = output.size[0]
         for y in range(0, outputHeightDownSample, downSample):
             for x in range(0, outputWidthDownSample, downSample):
-                p = int(math.floor(y * inv_downsample) * output_width + math.floor(x * inv_downsample))
+                p = int(
+                    math.floor(y * inv_downsample) * output_width +
+                    math.floor(x * inv_downsample))
                 importance = self.importance(crop, x, y)
                 detail = od[p][1] / 255.
-                score['skin'] += od[p][0] / 255. * (detail + options['skin_bias']) * importance
+                score['skin'] += od[p][0] / 255. * (
+                    detail + options['skin_bias']) * importance
                 score['detail'] += detail * importance
                 score['saturation'] += od[p][2] / 255. * \
                     (detail + options['saturation_bias']) * importance
         score['total'] = (score['detail'] * options['detail_weight'] +
                           score['skin'] * options['skin_weight'] +
-                          score['saturation'] * options['saturation_weight']) / crop['width'] / crop['height']
+                          score['saturation'] * options['saturation_weight']
+                          ) / crop['width'] / crop['height']
         return score
 
     def importance(self, crop, x, y):
@@ -304,14 +327,16 @@ class SmartCrop(object):
 
 def parse_argument():
     parser = argparse.ArgumentParser()
-    parser.add_argument('inputfile', metavar='INPUT_FILE',
-                        help='input image file')
-    parser.add_argument('outputfile', metavar='OUTPUT_FILE',
-                        help='output image file')
-    parser.add_argument('--debug', dest='debug', action='store_true',
-                        help='debug mode')
-    parser.add_argument('--width', dest='width', type=int, default=100, help='crop width')
-    parser.add_argument('--height', dest='height', type=int, default=100, help='crop height')
+    parser.add_argument(
+        'inputfile', metavar='INPUT_FILE', help='input image file')
+    parser.add_argument(
+        'outputfile', metavar='OUTPUT_FILE', help='output image file')
+    parser.add_argument(
+        '--debug', dest='debug', action='store_true', help='debug mode')
+    parser.add_argument(
+        '--width', dest='width', type=int, default=100, help='crop width')
+    parser.add_argument(
+        '--height', dest='height', type=int, default=100, help='crop height')
     return parser.parse_args()
 
 
@@ -327,21 +352,25 @@ def main():
     crop_options['height'] = int(imgHeight / imgResizeFactor)
     img = Image.open(opts.inputfile)
     if img.mode != 'RGB' and img.mode != 'RGBA':
-        sys.stderr.write("{1} convert from mode='{0}' to mode='RGB'\n".format(img.mode, opts.inputfile))
+        sys.stderr.write("{1} convert from mode='{0}' to mode='RGB'\n".format(
+            img.mode, opts.inputfile))
         newimg = Image.new("RGB", img.size)
         newimg.paste(img)
         img = newimg
     ret = sc.crop(img, crop_options)
     if opts.debug:
         print(json.dumps(ret))
-    box = (ret['topCrop']['x'],
-           ret['topCrop']['y'],
+    box = (ret['topCrop']['x'], ret['topCrop']['y'],
            ret['topCrop']['width'] + ret['topCrop']['x'],
            ret['topCrop']['height'] + ret['topCrop']['y'])
     img = Image.open(opts.inputfile)
     img2 = img.crop(box)
     img2.thumbnail((imgWidth, imgHeight), Image.ANTIALIAS)
-    img2.save(opts.outputfile, crop_options['file_type'], quality=crop_options['save_quality'])
+    img2.save(
+        opts.outputfile,
+        crop_options['file_type'],
+        quality=crop_options['save_quality'])
+
 
 if __name__ == '__main__':
     main()
