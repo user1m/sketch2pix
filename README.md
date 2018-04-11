@@ -9,7 +9,7 @@ The overall motivation is to help the police better identify and catch the bad g
 ## Requirements
 * [imagemagick](https://imagemagick.org/script/index.php)
 
-## Creating Datasets
+## Creating Datasets (!Deprecated)
 1. Create a folder in `sketch2pix/dataset`
 	*	ie. `faces-edge1`
 2. Within that folder create 3 folders `edge`, `face`, `face2edge`
@@ -33,6 +33,14 @@ The overall motivation is to help the police better identify and catch the bad g
 
 	* **This command will output to the `face2edge` folder**
 
+## Creating Dataset
+
+Run 
+
+```
+> python sketch2pix/dataset/PencilSketch/gen_sketch_and_gen_resized_face.py \
+/path/to/image_folder /path/to/face_folder /path/to/sketch_folder
+```
 
 ## Training a Model
 In `sketch2pix`
